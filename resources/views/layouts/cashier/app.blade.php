@@ -7,7 +7,7 @@
     <title>Point Of Sales - V1.0</title>
     <link rel="shortcut icon" type="image/png" href="{{ asset('assets/dashboard/images/logos/favicon.png') }}" />
     <link rel="stylesheet" href="{{ asset('assets/dashboard/css/styles.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('yajra/style.css') }}" />
+    {{-- <link rel="stylesheet" href="{{ asset('yajra/style.css') }}" /> --}}
 
     <!-- FilePond styles -->
     <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet">
@@ -82,7 +82,7 @@
     <!-- Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    @stack('scriptsGetProductByCategoryId')
+    @stack('scripts')
 
 </body>
 

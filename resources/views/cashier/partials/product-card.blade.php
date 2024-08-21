@@ -1,7 +1,8 @@
 <div class="col-md-3">
     <div class="card shadow">
         <div class="card-body p-2">
-            <a href="#" id="addToCart">
+            <a href="" class="add-to-cart" data-name="{{ $product->name }}" data-price="{{ $product->price }}"
+                data-thumbnail="{{ $product->image_thumbnail ? asset('storage/' . $product->image_thumbnail) : asset('assets/image/empty-image.webp') }}">
                 <div class="card-image">
                     <img src="{{ $product->image_thumbnail ? asset('storage/' . $product->image_thumbnail) : asset('assets/image/empty-image.webp') }}"
                         alt="" class="img-thumbnail rounded mb-2" width="100" height="100" loading="lazy">
