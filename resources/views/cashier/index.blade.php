@@ -118,6 +118,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                        <!-- Invoice Details -->
                         <div class="row">
                             <div class="col-md-5">
                                 <div class="d-flex flex-column">
@@ -131,9 +132,8 @@
                                 <div class="d-flex flex-column">
                                     <p class="text-dark"><strong>: Rp.
                                             {{ number_format(session('invoice')->transaction->total_price) }}</strong></p>
-                                    <p class="text-dark text-capitalize">
-                                        <strong>: {{ session('invoice')->transaction->payment_method }}</strong>
-                                    </p>
+                                    <p class="text-dark text-capitalize"><strong>:
+                                            {{ session('invoice')->transaction->payment_method }}</strong></p>
                                     <p class="text-dark"><strong>: Rp.
                                             {{ number_format(session('invoice')->transaction->payment_amount) }}</strong>
                                     </p>
@@ -144,15 +144,11 @@
                             </div>
                         </div>
                         <div class="my-">
-                            <h5 class="text-dark mb-2">
-                                Product Items
-                            </h5>
+                            <h5 class="text-dark mb-2">Product Items</h5>
                             <ul class="list-group list-group-flush">
                                 @foreach (session('invoice')->transaction->transactionItems as $item)
                                     <li class="list-group-item text-dark">{{ $item->product->name }} | Qty :
-                                        {{ $item->qty }} |
-                                        Sub Total: Rp.
-                                        {{ number_format($item->sub_total) }}</li>
+                                        {{ $item->qty }} | Sub Total: Rp. {{ number_format($item->sub_total) }}</li>
                                 @endforeach
                             </ul>
                         </div>
@@ -162,6 +158,10 @@
                                 class="ti ti-circle-x me-2"></i>Close</button>
                         <button type="button" class="btn btn-primary"><i class="ti ti-printer me-2"></i>Print
                             Invoice</button>
+                        @if (session('invoice')->transaction->payment_method === 'QRIS')
+                            <button type="button" id="pay-button" class="btn btn-dark"><i
+                                    class="ti ti-printer me-2"></i>Pay QRIS</button>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -175,6 +175,41 @@
                 });
                 invoiceModal.show();
             });
+        </script>
+
+        <script src="https://app.sandbox.midtrans.com/snap/snap.js"
+            data-client-key="{{ config('services.midtrans.clientKey') }}"></script>
+        <script type="text/javascript">
+            document.getElementById('pay-button').onclick = function() {
+                snap.pay("{{ session('snapToken') }}", {
+                    onSuccess: function(result) {
+                        Swal.fire({
+                            title: 'Payment Success!',
+                            text: 'Your payment was successful.',
+                            icon: 'success',
+                            showCloseButton: true, // Show the close button
+                            timer: 5000, // Auto close after 5 seconds
+                            timerProgressBar: true, // Optional: Show progress bar
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        });
+                    },
+                    onPending: function(result) {
+                        alert('Payment pending!');
+                        window.location.reload();
+                    },
+                    onError: function(result) {
+                        alert('Payment failed!');
+                        window.location.reload();
+                    },
+                    onClose: function() {
+                        alert('Payment popup closed!');
+                        window.location.reload();
+                    }
+                });
+            };
         </script>
     @endif
 @endsection

@@ -169,40 +169,41 @@ class TransactionController extends Controller
                 'transaction_id' => $transaction->uuid,
             ]);
 
-            DB::commit();
+            // Jika metode pembayaran adalah QRIS, generate Snap Token
+            if ($validatedData['payment_method'] === 'QRIS') {
+                // Set up Midtrans configuration
+                Config::$serverKey = config('services.midtrans.serverKey');
+                Config::$isProduction = config('services.midtrans.isProduction');
+                Config::$isSanitized = config('services.midtrans.isSanitized');
+                Config::$is3ds = config('services.midtrans.is3ds');
 
-            // Clear the cart
-            Cart::session(Auth::user()->id)->clear();
+                $params = [
+                    'transaction_details' => [
+                        'order_id' => $invoice->invoice_no,
+                        'gross_amount' => $total,
+                    ],
+                ];
 
-            return redirect()->back()->with('success', 'Transaction successful')->with('invoice', $invoice);
+                $snapToken = Snap::getSnapToken($params);
+                DB::commit();
+
+                // Clear the cart
+                Cart::session(Auth::user()->id)->clear();
+
+                return redirect()->back()->with('success', 'Transaction successful')
+                    ->with('invoice', $invoice)
+                    ->with('snapToken', $snapToken);
+            } else {
+                DB::commit();
+
+                // Clear the cart
+                Cart::session(Auth::user()->id)->clear();
+
+                return redirect()->back()->with('success', 'Transaction successful')->with('invoice', $invoice);
+            }
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Transaction failed: ' . $e->getMessage());
         }
-    }
-
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }
