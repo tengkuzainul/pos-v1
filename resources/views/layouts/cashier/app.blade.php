@@ -15,7 +15,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
-
 <body>
     <!--  Sweet Alert RealRashid -->
     @include('sweetalert::alert', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
@@ -55,8 +54,8 @@
         </div>
     </div>
 
-    <!-- jQuery dan Bootstrap -->
-    <script src="{{ asset('assets/dashboard/libs/jquery/dist/jquery.min.js') }}"></script>
+    <!-- jQuery dan Bootstrap (muat hanya satu jQuery) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ asset('assets/dashboard/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/dashboard/js/sidebarmenu.js') }}"></script>
     <script src="{{ asset('assets/dashboard/js/app.min.js') }}"></script>
@@ -69,13 +68,10 @@
 
     @stack('password-regex')
     @stack('dynamicFormJS')
-
-
     @stack('imagePreview')
 
     <!-- Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </body>
 

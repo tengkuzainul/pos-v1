@@ -87,14 +87,15 @@
                     <span class="hide-menu">Cashier</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link {{ Request::is('cashier/***') ? 'active' : '' }}"
+                    <a class="sidebar-link {{ Request::is('cashier/***') && !Request::is('cashier/all') ? 'active' : '' }}"
                         href="{{ route('transaction.index') }}" aria-expanded="false">
                         <iconify-icon icon="material-symbols:point-of-sale"></iconify-icon>
                         <span class="hide-menu">Transactions</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="./sample-page.html" aria-expanded="false">
+                    <a class="sidebar-link {{ Request::is('cashier/all') ? 'active' : '' }}"
+                        href="{{ route('transaction.all') }}" aria-expanded="false">
                         <iconify-icon icon="fa6-solid:rupiah-sign"></iconify-icon>
                         <span class="hide-menu">All Transactions</span>
                     </a>

@@ -86,10 +86,13 @@ Route::middleware(['auth', 'role:super-admin|admin'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:super-admin|kasir'])->group(function () {
-    // Route for TransactionController
+    // Route Form Transaction Controller
     Route::prefix('cashier')->group(function () {
         Route::get('/index', [TransactionController::class, 'index'])->name('transaction.index');
         Route::post('/add-to-cart', [TransactionController::class, 'addToCart'])->name('addToCart');
-        Route::post('/remove-to-cart', [TransactionController::class, 'removeFromCart'])->name('removeFromCart');
+        Route::post('/remove-from-cart', [TransactionController::class, 'removeFromCart'])->name('removeFromCart');
+        Route::post('/store', [TransactionController::class, 'store'])->name('transaction.store');
+        Route::get('/qris/{qrCodeUrl}', [TransactionController::class, 'handleQrisRedirect'])->name('transaction.qris');
+        Route::get('/all', [TransactionController::class, 'list'])->name('transaction.all');
     });
 });

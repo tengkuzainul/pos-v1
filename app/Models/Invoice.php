@@ -16,7 +16,7 @@ class Invoice extends Model
     public $incrementing = false;
     public $keyType = 'string';
 
-    public function transactions()
+    public function transaction()
     {
         return $this->belongsTo(Transaction::class, 'transaction_id');
     }

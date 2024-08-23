@@ -23,11 +23,13 @@
                     </a>
                 </li>
                 @foreach ($categories as $category)
-                    <li class="sidebar-item {{ request('category_id') == $category->uuid ? 'active' : '' }}">
+                    <li class="sidebar-item">
                         <form action="{{ route('transaction.index') }}" method="GET">
                             <input type="hidden" name="category_id" value="{{ $category->uuid }}">
-                            <button type="submit" class="sidebar-link btn btn-block">
-                                <iconify-icon icon="bx:food-menu"></iconify-icon>
+                            <button type="submit"
+                                class="sidebar-link btn btn-block {{ request('category_id') == $category->uuid ? 'active bg-primary text-white w-100' : '' }}">
+                                <iconify-icon icon="bx:food-menu"
+                                    class="{{ request('category_id') == $category->uuid ? 'text-white' : '' }}"></iconify-icon>
                                 <span class="hide-menu">{{ $category->name }}</span>
                             </button>
                         </form>
