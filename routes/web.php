@@ -89,6 +89,7 @@ Route::middleware(['auth', 'role:super-admin|kasir'])->group(function () {
     // Route for TransactionController
     Route::prefix('cashier')->group(function () {
         Route::get('/index', [TransactionController::class, 'index'])->name('transaction.index');
-        Route::get('/get-product-by-category/{categoryId}', [TransactionController::class, 'getProductByCategory']);
+        Route::post('/add-to-cart', [TransactionController::class, 'addToCart'])->name('addToCart');
+        Route::post('/remove-to-cart', [TransactionController::class, 'removeFromCart'])->name('removeFromCart');
     });
 });
