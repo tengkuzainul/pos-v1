@@ -17,8 +17,13 @@
                     <form action="{{ route('addToCart') }}" method="POST">
                         @csrf
                         <input type="hidden" name="id" value="{{ $product->uuid }}">
-                        <button type="submit" class="btn btn-sm btn-dark w-100"><i
-                                class="ti ti-shopping-cart-plus"></i> Add to cart</button>
+                        <button type="submit" class="btn btn-sm btn-dark w-100"
+                            {{ $product->available === false || $product->stock === 0 ? 'disabled' : '' }}
+                            aria-disabled="{{ $product->available === false || $product->stock === 0 ? 'true' : 'false' }}">
+                            <i
+                                class="ti ti-shopping-cart-{{ $product->available === false || $product->stock === 0 ? 'off' : 'plus' }}"></i>
+                            {{ $product->available === false || $product->stock === 0 ? ' Empty' : ' Add to cart' }}
+                        </button>
                     </form>
                 </div>
             </div>

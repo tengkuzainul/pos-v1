@@ -24,7 +24,8 @@ Auth::routes([
     'password.update' => false,
 ]);
 
-Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(['role:super-admin']);
+Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(['role:super-admin']); // web.php
+
 
 Route::middleware(['auth', 'role:super-admin'])->group(function () {
     // route for RoleController

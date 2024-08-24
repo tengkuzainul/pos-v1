@@ -89,7 +89,15 @@
                                             <span
                                                 class="badge py-2 px-1 {{ $transaction->payment_method === 'cash' ? 'bg-info' : 'bg-primary' }}">{{ $transaction->payment_method }}</span>
                                         </td>
-                                        <td class="text-dark">{{ date('d/F/Y', strtotime($transaction->created_at)) }}</td>
+                                        <td class="text-dark">
+                                            <div class="d-flex flex-column">
+                                                <p class="mb-0">{{ date('d/F/Y', strtotime($transaction->created_at)) }}
+                                                </p>
+                                                <p class="mb-0">{{ date('H.i', strtotime($transaction->created_at)) }}
+                                                    WIB
+                                                </p>
+                                            </div>
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>

@@ -55,7 +55,7 @@ class TransactionController extends Controller
         }
 
         $sortBy = $request->input('sort_by', 'created_at');
-        $sortOrder = $request->input('sort_order', 'asc');
+        $sortOrder = $request->input('sort_order', 'desc'); // default to descending for latest first
 
         $validSortColumns = ['created_at', 'total_price', 'payment_method'];
         if (!in_array($sortBy, $validSortColumns)) {
@@ -64,7 +64,8 @@ class TransactionController extends Controller
 
         $transactionsQuery->orderBy($sortBy, $sortOrder);
 
-        $transactions = $transactionsQuery->latest()->paginate(10);
+        // Use latest() to ensure ordering by created_at in descending order
+        $transactions = $transactionsQuery->latest('created_at')->paginate(10);
 
         $title = 'Delete Transaction!';
         $text = "Are you sure you want to delete this transaction?";
