@@ -8,18 +8,16 @@
     <link rel="shortcut icon" type="image/png" href="{{ asset('assets/dashboard/images/logos/favicon.png') }}" />
     <link rel="stylesheet" href="{{ asset('assets/dashboard/css/styles.min.css') }}" />
 
-    <!-- FilePond styles -->
-    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet">
-    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
-        rel="stylesheet">
-
     <!-- Select2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- Datepicker -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
-
 
 <body>
     <!--  Sweet Alert RealRashid -->
@@ -72,14 +70,16 @@
     <!-- solar icons -->
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
 
-    @stack('password-regex')
-    @stack('dynamicFormJS')
-
-
-    @stack('imagePreview')
+    <!-- Datepicker JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
     <!-- Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    @stack('password-regex')
+    @stack('dynamicFormJS')
+    @stack('imagePreview')
+    @stack('date-picker')
 
 </body>
 

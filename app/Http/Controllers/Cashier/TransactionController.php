@@ -64,7 +64,7 @@ class TransactionController extends Controller
 
         $transactionsQuery->orderBy($sortBy, $sortOrder);
 
-        $transactions = $transactionsQuery->paginate(10);
+        $transactions = $transactionsQuery->latest()->paginate(10);
 
         $title = 'Delete Transaction!';
         $text = "Are you sure you want to delete this transaction?";

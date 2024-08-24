@@ -7,6 +7,7 @@ use App\Http\Controllers\Cashier\TransactionController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Master\CategoryController;
 use App\Http\Controllers\Master\ProductController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -82,6 +83,11 @@ Route::middleware(['auth', 'role:super-admin|admin'])->group(function () {
         Route::prefix('stock')->group(function () {
             Route::get('/index', [ProductController::class, 'stockData'])->name('product.stock');
         });
+    });
+
+    Route::prefix('report')->group(function () {
+        // Route for ReportController (Accounting)
+        Route::get('/index', [ReportController::class, 'index'])->name('report.index');
     });
 });
 

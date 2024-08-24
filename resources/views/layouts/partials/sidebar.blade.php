@@ -100,6 +100,20 @@
                         <span class="hide-menu">All Transactions</span>
                     </a>
                 </li>
+                <li>
+                    <span class="sidebar-divider lg"></span>
+                </li>
+                <li class="nav-small-cap">
+                    <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
+                    <span class="hide-menu">Report</span>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ Request::is('report/index') ? 'active' : '' }}"
+                        href="{{ route('report.index') }}" aria-expanded="false">
+                        <iconify-icon icon="fa6-solid:money-bill-trend-up"></iconify-icon>
+                        <span class="hide-menu">Income Report</span>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- End Sidebar navigation -->
